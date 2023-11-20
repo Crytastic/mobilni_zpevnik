@@ -31,3 +31,7 @@ doc/api/
 
 # Android Studio related
 .idea
+
+# Scraper related
+scraper/node_modules/
+scraper/pnpm-lock.yaml
