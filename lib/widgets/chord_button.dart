@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/chord.dart';
+import 'package:mobilni_zpevnik/models/preferences.dart';
+import 'package:mobilni_zpevnik/providers/preferences_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
 class ChordButton extends StatelessWidget {
@@ -23,8 +26,21 @@ class ChordButton extends StatelessWidget {
   @override
   build(BuildContext context) {
     final bool darkTheme = Theme.of(context).brightness == Brightness.dark;
+    final Preferences preferences =
+        Provider.of<PreferencesProvider>(context).preferences;
     TooltipDirection tooltipDirection =
         down ? TooltipDirection.down : TooltipDirection.up;
+
+    String getChordName(String chord) {
+      String nameString = chord;
+      if (!preferences.showMiAsM) {
+        nameString = nameString.replaceAll("m", 'mi');
+      }
+      if (preferences.showBAsH) {
+        nameString = nameString.replaceAll("B", 'H');
+      }
+      return nameString;
+    }
 
     return WillPopScope(
         onWillPop: _willPopCallback,
@@ -49,7 +65,7 @@ class ChordButton extends StatelessWidget {
                   color: Colors.white12,
                   height: 20,
                   child: Text(
-                    chord,
+                    getChordName(chord),
                     style: TextStyle(
                         color: (darkTheme ? Colors.white : Colors.black)),
                   ),

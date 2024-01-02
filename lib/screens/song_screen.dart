@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobilni_zpevnik/models/song.dart';
+import 'package:mobilni_zpevnik/providers/preferences_provider.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/utils/auto_scroll_provider.dart';
 import 'package:mobilni_zpevnik/utils/song_parser.dart';

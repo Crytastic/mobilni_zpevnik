@@ -19,8 +19,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.settings),
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => const PreferencesScreen()),
+              MaterialPageRoute(builder: (context) => PreferencesScreen()),
             );
           },
         ),

@@ -29,5 +29,17 @@
   "email-already-in-use": "Účet s tímto e-mailem už existuje.",
   "weak-password": "Tohle heslo je příliš slabé.",
   "add-to-songbook": "Přidat do zpěvníku",
-  "remove-from-songbook": "Odstranit ze zpěvníku"
+  "remove-from-songbook": "Odstranit ze zpěvníku",
+  "guitar": "Kytara",
+  "ukulele": "Ukulele",
+  "piano": "Piano",
+  "en": "English",
+  "cs": "Čeština",
+  "darkMode": "Temný režim",
+  "mainInstrument": "Hlavní nástroj",
+  "showChords": "Zobrazovat akordy",
+  "simplifiedChords": "Zjednodušené akordy",
+  "showBAsH": "Zobrazovat B jako H",
+  "showMiAsM": "Zobrazovat Mi jako M",
+  "language": "Jazyk"
 }
