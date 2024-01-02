@@ -30,6 +30,8 @@
   "weak-password": "Tohle heslo je příliš slabé.",
   "add-to-songbook": "Přidat do zpěvníku",
   "remove-from-songbook": "Odstranit ze zpěvníku",
+  "delete-songbook": "Smazat zpěvník",
+  "add-to-favorites": "Přidat do oblíbených",
   "guitar": "Kytara",
   "ukulele": "Ukulele",
   "piano": "Piano",

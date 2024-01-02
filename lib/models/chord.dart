@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class Chord {
   String name;
-  bool showMiAsM;
-  bool showBAsH;
 
   Chord({
     required this.name,
-    this.showMiAsM = true,
-    this.showBAsH = false,
   }) {
     name = name.replaceAll("mi", 'm');
     name = name.replaceAll("H", 'B');
+  }
+
+  String getChordName() {
+    return name;
   }
 
   AssetImage getImage(bool darkTheme) {

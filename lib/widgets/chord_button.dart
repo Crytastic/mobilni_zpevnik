@@ -23,6 +23,22 @@ class ChordButton extends StatelessWidget {
     return true;
   }
 
+  final _controller = SuperTooltipController();
+  final bool down;
+
+  ChordButton({Key? key, required this.chord, required this.down})
+      : super(key: key);
+
+  Future<bool> _willPopCallback() async {
+    // If the tooltip is open we don't pop the page on a backbutton press
+    // but close the ToolTip
+    if (_controller.isVisible) {
+      await _controller.hideTooltip();
+      return false;
+    }
+    return true;
+  }
+
   @override
   build(BuildContext context) {
     final bool darkTheme = Theme.of(context).brightness == Brightness.dark;

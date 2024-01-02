@@ -6,7 +6,7 @@ import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:provider/provider.dart';
-import 'package:mobilni_zpevnik/widgets/gap.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
 
 class ResetPasswordScreen extends StatelessWidget {

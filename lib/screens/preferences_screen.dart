@@ -21,40 +21,45 @@ class PreferencesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final preferencesProvider = Provider.of<PreferencesProvider>(context);
     final userPreferences = preferencesProvider.preferences;
-    return AuthScreen(
-      child: ScreenTemplate(
-        appBar: AppBar(
-          title: Text('preferences'.i18n()),
-        ),
-        body: ListView(
-          children: [
-            ...preferencesProvider.preferences.toJson().keys.map((key) {
-              return PreferenceFormField(
-                label: key,
-                value: userPreferences.get(key),
-              );
-            }),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  child: CommonButton(
-                      width: 200,
-                      label: "save".i18n(),
-                      onPressed: () => PreferencesService()
-                          .savePreferences(userPreferences)),
-                )
-              ],
+
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          return AuthScreen(
+            child: ScreenTemplate(
+              appBar: AppBar(
+                title: Text('preferences'.i18n()),
+              ),
+              body: ListView(
+                children: [
+                  ...preferencesProvider.preferences.toJson().keys.map((key) {
+                    return PreferenceFormField(
+                      label: key,
+                      value: userPreferences.get(key),
+                    );
+                  }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: CommonButton(
+                            width: 200,
+                            label: "save".i18n(),
+                            onPressed: () => PreferencesService()
+                                .savePreferences(userPreferences)),
+                      )
+                    ],
+                  ),
+                  ListTile(
+                    title: Text('logout'.i18n()),
+                    subtitle: Text(snapshot.data?.email ?? ''),
+                    onTap: _signUserOut,
+                  ),
+                ],
+              ),
             ),
-            ListTile(
-              title: Text('logout'.i18n()),
-              subtitle: Text(FirebaseAuth.instance.currentUser?.email ?? ''),
-              onTap: _signUserOut,
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }

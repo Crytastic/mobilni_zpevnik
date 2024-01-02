@@ -4,7 +4,7 @@ import 'package:mobilni_zpevnik/models/song.dart';
 import 'package:mobilni_zpevnik/screens/screen_template.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
-import 'package:mobilni_zpevnik/widgets/gap.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 
 class CreateSongbookScreen extends StatelessWidget {
   final Function(String name, List<Song> songs) onCreate;

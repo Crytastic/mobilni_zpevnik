@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:localization/localization.dart';
 import 'package:mobilni_zpevnik/screens/login_error_notifier.dart';
 import 'package:mobilni_zpevnik/screens/reset_password_screen.dart';
@@ -11,11 +12,12 @@ import 'package:mobilni_zpevnik/widgets/common_text_field.dart';
 import 'package:mobilni_zpevnik/widgets/common_button.dart';
 import 'package:mobilni_zpevnik/widgets/custom_divider.dart';
 import 'package:provider/provider.dart';
-import 'package:mobilni_zpevnik/widgets/gap.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 import 'package:mobilni_zpevnik/widgets/progress_indicator.dart';
 
 class LoginScreen extends StatelessWidget {
   final VoidCallback swapForRegisterScreen;
+  final _authService = GetIt.I<AuthService>();
 
   LoginScreen({super.key, required this.swapForRegisterScreen});
 
@@ -23,19 +25,20 @@ class LoginScreen extends StatelessWidget {
   final passwordController = TextEditingController();
 
   void _signUserIn(
-      BuildContext context, LoginErrorProvider loginErrorProvider) async {
+    BuildContext context,
+    LoginErrorProvider loginErrorProvider,
+  ) async {
     loginErrorProvider.clearErrorMessages();
     ProgressDialog.show(context);
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
+      await _authService.signInWithEmail(
+        emailController.text,
+        passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
       final String code = e.code;
-      switch (code)
-      {
+      switch (code) {
         case 'invalid-email':
           loginErrorProvider.setEmailErrorMessage(code.i18n());
           break;
@@ -49,7 +52,7 @@ class LoginScreen extends StatelessWidget {
       }
     }
 
-    if (context.mounted){
+    if (context.mounted) {
       ProgressDialog.hide(context);
     }
   }
@@ -117,7 +120,9 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CommonSquareButton(
-                      onTap: () => AuthService().signInWithGoogle(),
+                      onTap: () {
+                        _authService.signInWithGoogle();
+                      },
                       imagePath: "assets/images/google-logo.png",
                     )
                   ],

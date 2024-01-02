@@ -6,6 +6,7 @@ class ColoredTile extends StatelessWidget {
   final Widget subtitle;
   final Widget? trailing;
   final VoidCallback? onTap;
+  final IconData? icon;
 
   const ColoredTile({
     Key? key,
@@ -14,6 +15,7 @@ class ColoredTile extends StatelessWidget {
     required this.subtitle,
     this.trailing,
     this.onTap,
+    this.icon = Icons.music_note,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,20 @@ class ColoredTile extends StatelessWidget {
 
     return ListTile(
       tileColor: tileColor,
+      leading: Container(
+        width: 48.0,
+        height: 48.0,
+        decoration: BoxDecoration(
+          color: tileColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: Center(
+          child: Icon(
+            icon,
+            color: tileColor.withOpacity(0.5),
+          ),
+        ),
+      ),
       title: title,
       subtitle: subtitle,
       trailing: trailing,

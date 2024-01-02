@@ -1,32 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
-import 'package:mobilni_zpevnik/models/song.dart';
-import 'package:mobilni_zpevnik/screens/add_to_songbook_screen.dart';
+import 'package:mobilni_zpevnik/widgets/menu_option.dart';
+import 'package:mobilni_zpevnik/widgets/ui_gaps.dart';
 
 class BottomSheetMenu extends StatelessWidget {
-  final Song song;
-  final bool canAddToSongbook;
-  final bool canRemoveFromSongbook;
-  final VoidCallback? onAddToSongbookTap;
-  final Function(Song song)? onRemoveFromSongbookTap;
+  final Widget menuHeader;
+  final List<MenuOption> menuOptions;
 
   const BottomSheetMenu({
     Key? key,
-    required this.song,
-    this.canAddToSongbook = true,
-    this.canRemoveFromSongbook = false,
-    this.onAddToSongbookTap,
-    this.onRemoveFromSongbookTap,
+    required this.menuOptions,
+    required this.menuHeader,
   }) : super(key: key);
 
   static void show(
-    BuildContext context,
-    Song song, {
-    bool canAddToSongbook = false,
-    bool canRemoveFromSongbook = false,
-    VoidCallback? onAddToSongbookTap,
-    Function(Song song)? onRemoveFromSongbookTap,
-  }) {
+      BuildContext context, Widget menuHeader, List<MenuOption> menuOptions) {
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -36,13 +23,7 @@ class BottomSheetMenu extends StatelessWidget {
       ),
       context: context,
       builder: (BuildContext context) {
-        return BottomSheetMenu(
-          song: song,
-          canAddToSongbook: canAddToSongbook,
-          canRemoveFromSongbook: canRemoveFromSongbook,
-          onAddToSongbookTap: onAddToSongbookTap,
-          onRemoveFromSongbookTap: onRemoveFromSongbookTap,
-        );
+        return BottomSheetMenu(menuHeader: menuHeader, menuOptions: menuOptions);
       },
     );
   }
@@ -52,26 +33,15 @@ class BottomSheetMenu extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 8.0),
+        const SmallGap(),
         _buildSwipeIndicator(),
-        ListTile(
-          title: Text(song.name),
-          subtitle: Text(song.artist),
-        ),
+        menuHeader,
         const Divider(height: 1),
-        if (canAddToSongbook)
+        for (var option in menuOptions)
           ListTile(
-            leading: const Icon(Icons.add_circle_rounded),
-            title: Text('add-to-songbook'.i18n()),
-            onTap: onAddToSongbookTap,
-          ),
-        if (canRemoveFromSongbook)
-          ListTile(
-            leading: const Icon(Icons.remove_circle_rounded),
-            title: Text('remove-from-songbook'.i18n()),
-            onTap: onRemoveFromSongbookTap != null
-                ? () => onRemoveFromSongbookTap!(song)
-                : null,
+            leading: Icon(option.icon),
+            title: Text(option.title),
+            onTap: option.onTap,
           ),
       ],
     );
