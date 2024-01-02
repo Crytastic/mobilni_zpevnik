@@ -41,8 +41,8 @@ class SongbookApp extends StatelessWidget {
           Locale('en', 'US'),
           Locale('cs', 'CZ'),
         ],
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: ThemeData.light(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
         home: const MainScreen(),
       ),
     );
